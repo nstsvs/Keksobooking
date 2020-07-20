@@ -126,23 +126,28 @@ var generateRentList = function (count) {
 var generatedRents = generateRentList(OFFERS_COUNT);
 
 // рендер пинов на страницу
-var renderPins = function (pins, rentInfo) {
+var renderPins = function (offers) {
   var fragment = document.createDocumentFragment();
 
-  for (var i = 0; i < pins.length; i++) {
+  for (var i = 0; i < offers.length; i++) {
     var pinElement = pinButtonTemplate.cloneNode(true);
-    var currentPin = pins[i];
+    var currentOffer = offers[i];
     var pinImage = pinElement.querySelector('img');
 
-    pinElement.style.top = currentPin.location.y + 'px';
-    pinElement.style.left = currentPin.location.x + 'px';
-    pinImage.alt = currentPin.offer.title;
-    pinImage.src = currentPin.author.avatar;
+    pinElement.style.top = currentOffer.location.y + 'px';
+    pinElement.style.left = currentOffer.location.x + 'px';
+    pinImage.alt = currentOffer.offer.title;
+    pinImage.src = currentOffer.author.avatar;
+    pinElement.dataset.id = i;
 
     fragment.appendChild(pinElement);
 
-    pinElement.addEventListener('click', function () {
-      map.insertBefore(renderCardPopup(rentInfo)(mapFiltersContainer));
+    pinElement.addEventListener('click', function (event) {
+      var pin = event.currentTarget;
+      var pinId = Number(pin.dataset.id);
+      var targetOffer = offers[pinId];
+      var card = renderCardPopup(targetOffer);
+      map.insertBefore(card, mapFiltersContainer);
     });
   }
   mapPins.appendChild(fragment);
@@ -158,16 +163,10 @@ var renderFeaturesList = function (element, features) {
 };
 
 var renderPhotosList = function (photos, element) {
-  var photoElem = element.querySelector('.popup__photos');
   element.innerHTML = '';
-  var fragment = document.createDocumentFragment();
-
   for (var i = 0; i < photos.length; i++) {
-    var photo = photoElem.cloneNode(true);
-    photo.src = photos[i];
-    fragment.appendChild(photo);
+    element.insertAdjacentHTML('beforeend', '<img src="' + photos[i] + '" class="popup__photo" width="45" height="40" alt="Фотография жилья">');
   }
-  element.appendChild(fragment);
 };
 
 // закрытие карточки объявления с помощью клавиатуры
