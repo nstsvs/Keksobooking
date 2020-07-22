@@ -55,10 +55,10 @@
   };
 
   var addMainPinAddress = function (isPageActivate, offsetLeft, offsetTop) {
-    var mainPinX = offsetLeft + window.pin.MAIN_PIN_WIDTH / 2;
-    var mainPinY = offsetTop + window.pin.MAIN_PIN_HEIGHT / 2;
+    var mainPinX = offsetLeft + window.pin.WIDTH / 2;
+    var mainPinY = offsetTop + window.pin.HEIGHT / 2;
     if (isPageActivate === true) {
-      mainPinY = offsetTop + window.pin.MAIN_PIN_HEIGHT;
+      mainPinY = offsetTop + window.pin.HEIGHT;
     }
     offerFormAddress.value = Math.round(mainPinX) + ', ' + Math.round(mainPinY);
     offerFormAddress.readOnly = true;

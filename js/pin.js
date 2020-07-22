@@ -34,8 +34,8 @@
   };
 
   window.pin = {
-    MAIN_PIN_WIDTH: MAIN_PIN_WIDTH,
-    MAIN_PIN_HEIGHT: MAIN_PIN_HEIGHT,
+    WIDTH: MAIN_PIN_WIDTH,
+    HEIGHT: MAIN_PIN_HEIGHT,
     renderList: renderPins
   };
 })();

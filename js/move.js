@@ -29,8 +29,8 @@
         y: moveEvt.clientY
       };
 
-      var mainPinX = mainPin.offsetLeft - shift.x + window.pin.MAIN_PIN_WIDTH / 2;
-      var mainPinY = mainPin.offsetTop - shift.y + window.pin.MAIN_PIN_HEIGHT;
+      var mainPinX = mainPin.offsetLeft - shift.x + window.pin.WIDTH / 2;
+      var mainPinY = mainPin.offsetTop - shift.y + window.pin.HEIGHT;
 
       if (mainPinY >= window.data.MAP_Y_MIN && mainPinY <= window.data.MAP_Y_MAX) {
         mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
