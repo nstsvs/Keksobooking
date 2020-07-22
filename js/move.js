@@ -5,19 +5,13 @@
   var mainPin = map.querySelector('.map__pin--main');
 
   mainPin.addEventListener('mousedown', function (evt) {
-    evt.preventDefault();
 
     var startCoords = {
       x: evt.clientX,
       y: evt.clientY
     };
 
-    var dragged = false;
-
     var onMouseMove = function (moveEvt) {
-      moveEvt.preventDefault();
-
-      dragged = true;
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -42,17 +36,9 @@
       window.form.addMainPinAddress(true, mainPin.offsetLeft, mainPin.offsetTop);
     };
 
-    var onMouseUp = function (upEvt) {
-      upEvt.preventDefault();
+    var onMouseUp = function () {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
-      if (dragged) {
-        var onClickPreventDefault = function (clickEvt) {
-          clickEvt.preventDefault();
-          mainPin.removeEventListener('click', onClickPreventDefault);
-        };
-        mainPin.addEventListener('click', onClickPreventDefault);
-      }
     };
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
