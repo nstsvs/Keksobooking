@@ -11,7 +11,8 @@
       y: evt.clientY
     };
 
-    var onMouseMove = function (moveEvt) {
+    var onMouseMove = function (moveEvt, offsetLeft, offsetTop) {
+      moveEvt.preventDefault();
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -23,17 +24,17 @@
         y: moveEvt.clientY
       };
 
-      var mainPinX = mainPin.offsetLeft - shift.x + window.pin.WIDTH / 2;
-      var mainPinY = mainPin.offsetTop - shift.y + window.pin.HEIGHT;
+      var mainPinX = offsetLeft - shift.x + window.pin.WIDTH / 2;
+      var mainPinY = offsetTop - shift.y + window.pin.HEIGHT;
 
       if (mainPinY >= window.data.MAP_Y_MIN && mainPinY <= window.data.MAP_Y_MAX) {
-        mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
+        mainPin.style.top = (offsetTop - shift.y) + 'px';
       }
 
       if (mainPinX >= window.data.MAP_X_MIN && mainPinX <= window.data.MAP_X_MAX) {
-        mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+        mainPin.style.left = (offsetLeft - shift.x) + 'px';
       }
-      window.form.addMainPinAddress(true, mainPin.offsetLeft, mainPin.offsetTop);
+      window.form.addMainPinAddress(true);
     };
 
     var onMouseUp = function () {
