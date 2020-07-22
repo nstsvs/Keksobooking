@@ -5,6 +5,9 @@
   var offerFormRoomNumber = adForm.querySelector('#room_number');
   var offerFormCapacity = adForm.querySelector('#capacity');
 
+  var adFormElements = adForm.querySelectorAll('.ad-form__element');
+  var offerFormAddress = adForm.querySelector('#address');
+
   var offerFormPrice = adForm.querySelector('#price');
   var offerFormType = adForm.querySelector('#type');
   var offerFormTimeIn = adForm.querySelector('#timein');
@@ -29,8 +32,12 @@
       offerFormCapacity.setCustomValidity('');
     }
   };
-
   guestsValidation();
+
+  var activate = function () {
+    adForm.classList.remove('ad-form--disabled');
+    window.util.enableElements(adFormElements);
+  };
 
   // валидация полей 'Тип жилья' и 'Цена за ночь'
   var minPriceValidation = function () {
@@ -47,9 +54,24 @@
     offerFormTimeIn.value = offerFormTimeOut.value;
   };
 
+  var addMainPinAddress = function (isPageActivate, offsetLeft, offsetTop) {
+    var mainPinX = offsetLeft + window.pin.MAIN_PIN_WIDTH / 2;
+    var mainPinY = offsetTop + window.pin.MAIN_PIN_HEIGHT / 2;
+    if (isPageActivate === true) {
+      mainPinY = offsetTop + window.pin.MAIN_PIN_HEIGHT;
+    }
+    offerFormAddress.value = Math.round(mainPinX) + ', ' + Math.round(mainPinY);
+    offerFormAddress.readOnly = true;
+  };
+
   offerFormCapacity.addEventListener('change', guestsValidation);
   offerFormRoomNumber.addEventListener('change', guestsValidation);
   offerFormType.addEventListener('change', minPriceValidation);
   offerFormTimeIn.addEventListener('change', onOfferTimeInChange);
   offerFormTimeOut.addEventListener('change', onOfferTimeOutChange);
+
+  window.form = {
+    addMainPinAddress: addMainPinAddress,
+    activate: activate
+  };
 })();
