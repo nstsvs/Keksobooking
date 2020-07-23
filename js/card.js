@@ -4,6 +4,13 @@
 
   var cardTemplate = document.querySelector('#card').content;
 
+  var houseTypeAliases = {
+    'flat': 'Квартира',
+    'bungalo': 'Бунгало',
+    'house': 'Дом',
+    'palace': 'Дворец',
+  };
+
   var renderFeaturesList = function (element, features) {
     for (var i = 0; i < features.length; i++) {
       var liElem = document.createElement('li');
@@ -36,7 +43,7 @@
 
     renderPhotosList(rentInfo.offer.photos, popupPhotos);
 
-    var houseType = window.data.houseTypeAliases[rentInfo.offer.type];
+    var houseType = houseTypeAliases[rentInfo.offer.type];
     mapCard.querySelector('.popup__type').textContent = houseType;
 
     popupFeatures.innerHTML = '';
@@ -68,6 +75,6 @@
   };
 
   window.card = {
-    renderCardPopup: renderCardPopup
+    render: renderCardPopup
   };
 })();

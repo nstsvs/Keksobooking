@@ -1,12 +1,12 @@
 'use strict';
 
 (function () {
+  var MAIN_PIN_WIDTH = 65;
+  var MAIN_PIN_HEIGHT = 85;
 
   var pinButtonTemplate = document.querySelector('#pin').content.querySelector('button');
-  var mapFiltersContainer = document.querySelector('map__filters-container');
-  var map = document.querySelector('.map');
 
-  var renderPins = function (offers) {
+  var renderPins = function (offers, parentContaier, beforeContainer) {
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < offers.length; i++) {
@@ -26,14 +26,16 @@
         var pin = event.currentTarget;
         var pinId = Number(pin.dataset.id);
         var targetOffer = offers[pinId];
-        var card = window.card.renderCardPopup(targetOffer);
-        map.insertBefore(card, mapFiltersContainer);
+        var card = window.card.render(targetOffer);
+        parentContaier.insertBefore(card, beforeContainer);
       });
     }
-    window.data.mapPins.appendChild(fragment);
+    return fragment;
   };
 
   window.pin = {
-    renderPins: renderPins
+    WIDTH: MAIN_PIN_WIDTH,
+    HEIGHT: MAIN_PIN_HEIGHT,
+    renderList: renderPins
   };
 })();
