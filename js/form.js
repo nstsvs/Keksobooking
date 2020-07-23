@@ -13,6 +13,9 @@
   var offerFormTimeIn = adForm.querySelector('#timein');
   var offerFormTimeOut = adForm.querySelector('#timeout');
 
+
+  var mainPin = document.querySelector('.map__pin--main');
+
   var offerTypesMinPrices = {
     'palace': 10000,
     'flat': 1000,
@@ -54,11 +57,11 @@
     offerFormTimeIn.value = offerFormTimeOut.value;
   };
 
-  var addMainPinAddress = function (isPageActivate, offsetLeft, offsetTop) {
-    var mainPinX = offsetLeft + window.pin.WIDTH / 2;
-    var mainPinY = offsetTop + window.pin.HEIGHT / 2;
+  var addMainPinAddress = function (isPageActivate) {
+    var mainPinX = mainPin.offsetLeft + window.pin.WIDTH / 2;
+    var mainPinY = mainPin.offsetTop + window.pin.HEIGHT / 2;
     if (isPageActivate === true) {
-      mainPinY = offsetTop + window.pin.HEIGHT;
+      mainPinY = mainPin.offsetTop + window.pin.HEIGHT;
     }
     offerFormAddress.value = Math.round(mainPinX) + ', ' + Math.round(mainPinY);
     offerFormAddress.readOnly = true;
